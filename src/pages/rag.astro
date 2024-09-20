@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const ragEntities = [
+  { question: "What is the capital of France?", answer: "Paris", confidence: 0.95, source: "Geography Database" },
+  { question: "Who wrote 'To Kill a Mockingbird'?", answer: "Harper Lee", confidence: 0.98, source: "Literature Archive" },
+  { question: "What is the boiling point of water?", answer: "100°C (212°F)", confidence: 0.99, source: "Science Encyclopedia" },
+  { question: "When was the Declaration of Independence signed?", answer: "July 4, 1776", confidence: 0.97, source: "Historical Records" },
+  { question: "What is the largest planet in our solar system?", answer: "Jupiter", confidence: 0.99, source: "Astronomy Database" },
+];
+
+const getConfidenceColor = (confidence: number): string => {
+  if (confidence >= 0.9) return "text-green-600";
+  if (confidence >= 0.7) return "text-yellow-600";
+  return "text-red-600";
+};
+---
+
+<Layout title="RAG - Questions and Answers">
+  <div class="max-w-2xl mx-auto p-4">
+    <form class="mb-8">
+      <div class="flex">
+        <select id="rag-filter" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white dark:border-gray-600">
+          <option selected>All sources</option>
+          <option value="GD">Geography Database</option>
+          <option value="LA">Literature Archive</option>
+          <option value="SE">Science Encyclopedia</option>
+          <option value="HR">Historical Records</option>
+          <option value="AD">Astronomy Database</option>
+        </select>
+        <input type="search" id="rag-search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search questions..." required />
+      </div>
+    </form>
+
+    <ul id="ragList" class="divide-y divide-gray-100">
+      {ragEntities.map((rag) => (
+        <li class="py-3 flex flex-col">
+          <div class="flex justify-between items-start mb-2">
+            <h2 class="text-base font-medium">{rag.question}</h2>
+            <span class={`text-xs font-medium ${getConfidenceColor(rag.confidence)}`}>
+              {(rag.confidence * 100).toFixed(1)}% confident
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Answer: {rag.answer}</p>
+          <p class="text-xs text-gray-500">Source: {rag.source}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('rag-search') as HTMLInputElement;
+  const ragList = document.getElementById('ragList');
+  
+  if (searchInput && ragList) {
+    const listItems = ragList.getElementsByTagName('li');
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+
+      for (let item of listItems) {
+        const question = item.querySelector('h2')?.textContent?.toLowerCase() || '';
+        const answer = item.querySelector('p')?.textContent?.toLowerCase() || '';
+
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    });
+  }
+</script>
