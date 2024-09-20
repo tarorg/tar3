@@ -1,10 +1,78 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const taskEntities = [
+  { name: "Project Kickoff", status: "In Progress", dueDate: "2023-06-15", priority: "High" },
+  { name: "Client Meeting", status: "Pending", dueDate: "2023-06-18", priority: "Medium" },
+  { name: "Code Review", status: "Completed", dueDate: "2023-06-10", priority: "Low" },
+  { name: "Bug Fix #1234", status: "In Progress", dueDate: "2023-06-20", priority: "High" },
+  { name: "Documentation Update", status: "Not Started", dueDate: "2023-06-25", priority: "Medium" },
+];
+
+const priorityColors: {[key: string]: string} = {
+  High: "text-red-600",
+  Medium: "text-yellow-600",
+  Low: "text-green-600",
+};
+
+const getPriorityColor = (priority: string): string => {
+  return priorityColors[priority] || "text-gray-600";
+};
 ---
 
-<Layout title="Orai">
-    <main class="min-h-screen flex flex-col justify-center items-center pb-16">
-        <h1 class="text-4xl font-bold mb-4">Orai Page</h1>
-        <p>Welcome to the Orai page.</p>
-    </main>
+<Layout title="Orai - Tasks">
+  <div class="max-w-2xl mx-auto p-4">
+    <form class="mb-8">
+      <div class="flex">
+        <select id="task-filter" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
+          <option selected>All tasks</option>
+          <option value="IP">In Progress</option>
+          <option value="PE">Pending</option>
+          <option value="CO">Completed</option>
+          <option value="NS">Not Started</option>
+        </select>
+        <input type="search" id="task-search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search tasks..." required />
+      </div>
+    </form>
+
+    <ul class="divide-y divide-gray-100">
+      {taskEntities.map((task) => (
+        <li class="py-3 flex items-stretch justify-between">
+          <div>
+            <h2 class="text-base font-medium">{task.name}</h2>
+            <p class="text-sm text-gray-600 mt-1">Status: {task.status}</p>
+            <p class="text-sm text-gray-600">Due: {task.dueDate}</p>
+          </div>
+          <div class="flex flex-col items-end justify-between">
+            <span class={`text-xs font-medium ${getPriorityColor(task.priority)}`}>{task.priority} Priority</span>
+            <a href={`/task/${task.name}`} class="text-sm text-blue-600 hover:text-blue-800">View Task</a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('task-search') as HTMLInputElement;
+  const taskList = document.querySelector('ul');
+  
+  if (searchInput && taskList) {
+    const listItems = taskList.getElementsByTagName('li');
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+
+      for (let item of listItems) {
+        const name = item.querySelector('h2')?.textContent?.toLowerCase() || '';
+        const status = item.querySelector('p')?.textContent?.toLowerCase() || '';
+
+        if (name.includes(searchTerm) || status.includes(searchTerm)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    });
+  }
+</script>
