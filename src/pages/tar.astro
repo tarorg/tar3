@@ -4,12 +4,12 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Tar - AI Chat">
     <div class="flex flex-col h-screen bg-white">
-        <div id="messages-container" class="flex-grow overflow-y-auto p-4">
+        <div id="messages-container" class="flex-grow overflow-y-auto p-4 pb-20">
             <!-- Chat messages will be displayed here -->
         </div>
 
-        <div class="border-t p-4">
-            <form id="chat-form" class="flex items-center space-x-2">
+        <div class="fixed bottom-0 left-0 right-0 border-t bg-white p-4">
+            <form id="chat-form" class="flex items-center space-x-2 max-w-2xl mx-auto">
                 <input
                     id="user-input"
                     class="flex-grow h-10 rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
