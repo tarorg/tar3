@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Welcome to Astro.">
+	<main class="min-h-screen flex flex-col justify-center items-center pb-16">
+		<h1 class="text-4xl font-bold mb-4 text-gray-800">Welcome to <span class="text-gradient">Astro</span></h1>
+		<p class="text-center mb-8 max-w-xl text-gray-600">
+			To get started, open the directory <code class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-800">src/pages</code> in your project.<br />
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		</p>
+		<nav class="flex flex-col items-center">
+			<h2 class="text-2xl font-bold mb-2 text-gray-800">Secondary Pages</h2>
+			<ul class="flex space-x-4">
+				<li><a href="/files" class="text-blue-500 hover:underline">Files</a></li>
+				<li><a href="/pin" class="text-blue-500 hover:underline">Pin</a></li>
+				<li><a href="/parai" class="text-blue-500 hover:underline">Parai</a></li>
+				<li><a href="/pathai" class="text-blue-500 hover:underline">Pathai</a></li>
+			</ul>
+		</nav>
+	</main>
+</Layout>
+
+<style>
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+</style>
