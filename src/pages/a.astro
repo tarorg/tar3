@@ -26,15 +26,14 @@ const chatEntities = [
 
     <ul class="divide-y divide-gray-100">
       {chatEntities.map((chat) => (
-        <li class="py-3 flex items-stretch justify-between">
-          <div>
-            <h2 class="text-base font-medium">{chat.name}</h2>
-            <p class="text-sm text-gray-600 mt-1">{chat.lastMessage}</p>
-          </div>
-          <div class="flex flex-col items-end justify-between">
+        <li class="py-3 hover:bg-gray-50 transition-colors duration-150 ease-in-out">
+          <a href="/chat" class="flex items-center justify-between">
+            <div>
+              <h2 class="text-base font-medium text-gray-800">{chat.name}</h2>
+              <p class="text-sm text-gray-600 mt-1">{chat.lastMessage}</p>
+            </div>
             <span class="text-xs text-gray-400">{chat.time}</span>
-            <a href={`/chat/${chat.username}`} class="text-sm text-blue-600 hover:text-blue-800">Open Chat</a>
-          </div>
+          </a>
         </li>
       ))}
     </ul>
