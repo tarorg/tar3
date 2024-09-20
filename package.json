@@ -7,12 +7,19 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cap:sync": "npm run build && cap sync",
+    "cap:run:android": "cap run android",
+    "cap:run:ios": "cap run ios"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "@astrojs/cloudflare": "^11.0.5",
     "@astrojs/tailwind": "^5.1.1",
+    "@capacitor-community/sqlite": "^6.0.2",
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
     "@types/tailwindcss": "^3.1.0",
     "astro": "^4.15.8",
     "flowbite": "^2.5.1",

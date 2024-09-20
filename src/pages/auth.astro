@@ -1,0 +1,46 @@
+---
+// No Layout import needed
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign in - tar.</title>
+</head>
+<body class="bg-[#fffefc] flex flex-col min-h-screen">
+    <main class="flex-grow flex items-center justify-center">
+        <div class="w-full max-w-[320px] px-4">
+            <div class="text-center mb-8">
+                <img src="/tarlogo.png" alt="tar. logo" class="w-16 h-16 mx-auto mb-4 rounded-full">
+                <h1 class="text-2xl font-bold text-[#37352f]">sign in to tar.</h1>
+            </div>
+            
+            <button 
+                id="google-signin"
+                class="w-full flex items-center justify-center rounded-md border border-[#e6e6e6] bg-white px-4 py-2.5 text-[14px] font-medium text-[#37352f] hover:bg-[#f7f7f7] focus:outline-none focus:ring-2 focus:ring-[#0a85d1] focus:ring-offset-2"
+            >
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" class="mr-3 h-5 w-5" />
+                continue with google
+            </button>
+        </div>
+    </main>
+
+    <footer class="w-full px-5 pb-5">
+        <p class="text-[6px] leading-tight text-[#6b6b69] text-center mx-auto w-[80%] max-w-xs">
+            By continuing, you agree to tar.'s<br>
+            <a href="#" class="text-[#0a85d1]">Terms</a> & <a href="#" class="text-[#0a85d1]">Privacy Policy</a>.
+        </p>
+    </footer>
+
+    <script>
+        const googleSignInButton = document.getElementById('google-signin');
+        
+        googleSignInButton?.addEventListener('click', () => {
+            // TODO: Implement Google Sign-In logic
+            console.log('Google Sign-In clicked');
+            // You would typically initiate the Google Sign-In flow here
+        });
+    </script>
+</body>
+</html>
